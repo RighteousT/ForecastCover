@@ -32,11 +32,6 @@ fun CurrentWeatherScreen() {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Top
         ) {
-            // Location
-            Text(
-                text = "Halifax, Nova Scotia",
-                style = MaterialTheme.typography.titleLarge
-            )
 
             Spacer(modifier = Modifier.height(16.dp))
 
