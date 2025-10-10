@@ -10,9 +10,10 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.forecastcover.R
+import com.example.forecastcover.models.Current
 
 @Composable
-fun CurrentWeatherScreen() {
+fun CurrentWeatherScreen(current: Current) {
     Box(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -32,23 +33,23 @@ fun CurrentWeatherScreen() {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Top
         ) {
-
             Spacer(modifier = Modifier.height(16.dp))
 
             // Weather icon
             Image(
                 painter = painterResource(id = R.drawable.baseline_cloud_24),
-                contentDescription = "Cloudy",
+                contentDescription = current.condition,
                 modifier = Modifier.size(80.dp)
             )
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Weather details
-            Text(text = "Overcast")
-            Text(text = "6°C")
-            Text(text = "Feels like 2°C")
-            Text(text = "Wind SW 18 kph")
+            // Dynamic Weather details
+            Text(text = current.condition)
+            Text(text = "${current.temperature}°C")
+            Text(text = "Feels like ${current.feelsLike}°C")
+            Text(text = "Wind ${current.windDirection} ${current.windSpeed} kph")
+
         }
     }
 }
