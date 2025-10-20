@@ -10,10 +10,10 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.forecastcover.R
-import com.example.forecastcover.models.Forecast
+import com.example.forecastcover.models.ForecastDay
 
 @Composable
-fun DailyForecastScreen(forecasts: List<Forecast>) {
+fun DailyForecastScreen(forecasts: List<ForecastDay>) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -29,21 +29,18 @@ fun DailyForecastScreen(forecasts: List<Forecast>) {
                     modifier = Modifier.padding(all = 16.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-
                     //  Icon based on weather condition
                     val iconRes = when {
-                        forecast.condition.contains("Partly Cloudy", ignoreCase = true) -> R.drawable.partly_cloudy
-                        forecast.condition.contains("Cloudy", ignoreCase = true) -> R.drawable.baseline_cloud_24
-                        forecast.condition.contains("Rain", ignoreCase = true) -> R.drawable.baseline_water_drop_24
-                        forecast.condition.contains("Sunny", ignoreCase = true) -> R.drawable.baseline_wb_sunny_24
+                        forecast.day.condition.text.contains("Partly Cloudy", ignoreCase = true) -> R.drawable.partly_cloudy
+                        forecast.day.condition.text.contains("Cloudy", ignoreCase = true) -> R.drawable.baseline_cloud_24
+                        forecast.day.condition.text.contains("Rain", ignoreCase = true) -> R.drawable.baseline_water_drop_24
+                        forecast.day.condition.text.contains("Sunny", ignoreCase = true) -> R.drawable.baseline_wb_sunny_24
                         else -> R.drawable.baseline_wb_sunny_24
                     }
 
-
-
                     Image(
                         painter = painterResource(id = iconRes),
-                        contentDescription = forecast.condition,
+                        contentDescription = forecast.day.condition.text,
                         modifier = Modifier.size(40.dp),
                         contentScale = ContentScale.Fit
                     )
@@ -56,10 +53,9 @@ fun DailyForecastScreen(forecasts: List<Forecast>) {
                             style = MaterialTheme.typography.bodyLarge
                         )
                         Text(
-                            text = "${forecast.condition} - High ${forecast.highTemp}° / Low ${forecast.lowTemp}°",
+                            text = "${forecast.day.condition.text} - High ${forecast.day.maxtemp_c}° / Low ${forecast.day.mintemp_c}°",
                             style = MaterialTheme.typography.bodyMedium
                         )
-
                     }
                 }
             }

@@ -1,25 +1,46 @@
 package com.example.forecastcover.models
 
-// The root data class that combines current weather and forecast list
-data class Weather(
+data class WeatherResponse(
+    val location: Location,
     val current: Current,
-    val forecast: List<Forecast>
+    val forecast: Forecast
 )
 
-// Represents the current weather conditions
+data class Location(
+    val name: String,
+    val region: String,
+    val country: String,
+    val lat: Double,
+    val lon: Double,
+    val tz_id: String,
+    val localtime: String
+)
+
 data class Current(
-    val location: String,
-    val condition: String,
-    val temperature: Int,
-    val feelsLike: Int,
-    val windSpeed: Int,
-    val windDirection: String
+    val temp_c: Double,
+    val feelslike_c: Double,
+    val condition: Condition,
+    val wind_kph: Double,
+    val wind_dir: String
 )
 
-// Represents each day's forecast details
-data class Forecast (
+data class Condition(
+    val text: String,
+    val icon: String,
+    val code: Int
+)
+
+data class Forecast(
+    val forecastday: List<ForecastDay>
+)
+
+data class ForecastDay(
     val date: String,
-    val condition: String,
-    val highTemp: Int,
-    val lowTemp: Int
+    val day: Day
+)
+
+data class Day(
+    val maxtemp_c: Double,
+    val mintemp_c: Double,
+    val condition: Condition
 )

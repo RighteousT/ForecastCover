@@ -58,4 +58,14 @@ dependencies {
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
+    // Retrofit for API calls
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+// Gson Converter for JSON parsing
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+// Coroutines for async work
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+// Lifecycle (for ViewModel + StateFlow)
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.0")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.0")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.0")
 }

@@ -35,21 +35,20 @@ fun CurrentWeatherScreen(current: Current) {
         ) {
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Weather icon
+            // Weather icon (placeholder icon for now)
             Image(
                 painter = painterResource(id = R.drawable.baseline_cloud_24),
-                contentDescription = current.condition,
+                contentDescription = current.condition.text,
                 modifier = Modifier.size(80.dp)
             )
 
             Spacer(modifier = Modifier.height(16.dp))
 
             // Dynamic Weather details
-            Text(text = current.condition)
-            Text(text = "${current.temperature}°C")
-            Text(text = "Feels like ${current.feelsLike}°C")
-            Text(text = "Wind ${current.windDirection} ${current.windSpeed} kph")
-
+            Text(text = "${current.temp_c}°C")
+            Text(text = "Feels like ${current.feelslike_c}°C")
+            Text(text = current.condition.text)
+            Text(text = "Wind ${current.wind_dir} ${current.wind_kph} kph")
         }
     }
 }

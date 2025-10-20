@@ -1,34 +1,34 @@
-package com.example.forecastcover
+package com.example.forecastcover.viewmodel
 
 import androidx.lifecycle.ViewModel
-import com.example.forecastcover.models.Current
-import com.example.forecastcover.models.Forecast
-import com.example.forecastcover.models.Weather
-
+import androidx.lifecycle.viewModelScope
+import com.example.forecastcover.models.WeatherResponse
+import com.example.forecastcover.services.RetrofitInstance
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 
 class MainViewModel : ViewModel() {
-    //Placeholder data
-    val weather: Weather
+
+
+    private val _weather = MutableStateFlow<WeatherResponse?>(null)
+    val weather: StateFlow<WeatherResponse?> = _weather
 
     init {
-        val currentWeather = Current (
-            location = "Halifax, Nova Scotia",
-            condition = "Overcast",
-            temperature = 6,
-            feelsLike = 2,
-            windSpeed = 18,
-            windDirection = "SW"
-        )
-        val forecastList = listOf(
-            Forecast("Sun, Apr 27", "Cloudy", highTemp = 8, lowTemp = 3),
-            Forecast("Mon, Apr 28", "Rainy", highTemp = 7, lowTemp = 2),
-            Forecast("Tue, Apr 29", "Partly Cloudy", highTemp = 10, lowTemp = 4)
+        fetchWeather("Halifax")
+    }
 
-        )
-
-        weather = Weather(
-            current = currentWeather,
-            forecast = forecastList
-        )
+    private fun fetchWeather(city: String) {
+        viewModelScope.launch {
+            try {
+                val response = RetrofitInstance.api.getForecast(
+                    apiKey = "45a5b79e3e2f4d0d812174751251510",
+                    city = city
+                )
+                _weather.value = response
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
     }
 }
