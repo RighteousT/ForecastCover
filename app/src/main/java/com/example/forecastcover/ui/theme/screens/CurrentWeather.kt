@@ -20,7 +20,7 @@ fun CurrentWeatherScreen(current: Current) {
         // Background image
         Image(
             painter = painterResource(id = R.drawable.weather_background),
-            contentDescription = "Weather background",
+            contentDescription = "Sky Background",
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop
         )
@@ -29,11 +29,11 @@ fun CurrentWeatherScreen(current: Current) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(all = 16.dp),
+                .padding(horizontal = 16.dp, vertical = 32.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Top
         ) {
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(32.dp))
 
             // Weather icon (placeholder icon for now)
             Image(

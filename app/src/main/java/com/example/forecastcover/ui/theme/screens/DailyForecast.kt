@@ -14,48 +14,62 @@ import com.example.forecastcover.models.ForecastDay
 
 @Composable
 fun DailyForecastScreen(forecasts: List<ForecastDay>) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp)
-    ) {
-        forecasts.forEach { forecast ->
-            Card(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 4.dp)
-            ) {
-                Row(
-                    modifier = Modifier.padding(all = 16.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    //  Icon based on weather condition
-                    val iconRes = when {
-                        forecast.day.condition.text.contains("Partly Cloudy", ignoreCase = true) -> R.drawable.partly_cloudy
-                        forecast.day.condition.text.contains("Cloudy", ignoreCase = true) -> R.drawable.baseline_cloud_24
-                        forecast.day.condition.text.contains("Rain", ignoreCase = true) -> R.drawable.baseline_water_drop_24
-                        forecast.day.condition.text.contains("Sunny", ignoreCase = true) -> R.drawable.baseline_wb_sunny_24
-                        else -> R.drawable.baseline_wb_sunny_24
-                    }
+    Box(modifier = Modifier.fillMaxSize()) {
 
-                    Image(
-                        painter = painterResource(id = iconRes),
-                        contentDescription = forecast.day.condition.text,
-                        modifier = Modifier.size(40.dp),
-                        contentScale = ContentScale.Fit
+        // Background image
+        Image(
+            painter = painterResource(id = R.drawable.weather_background),
+            contentDescription = "Sky Background",
+            modifier = Modifier.fillMaxSize(),
+            contentScale = ContentScale.Crop
+        )
+
+        // Forecast list on top
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp)
+        ) {
+            forecasts.forEach { forecast ->
+                Card(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 6.dp),
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.85f)
                     )
+                ) {
+                    Row(
+                        modifier = Modifier.padding(all = 16.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        val iconRes = when {
+                            forecast.day.condition.text.contains("Partly Cloudy", ignoreCase = true) -> R.drawable.partly_cloudy
+                            forecast.day.condition.text.contains("Cloudy", ignoreCase = true) -> R.drawable.baseline_cloud_24
+                            forecast.day.condition.text.contains("Rain", ignoreCase = true) -> R.drawable.baseline_water_drop_24
+                            forecast.day.condition.text.contains("Sunny", ignoreCase = true) -> R.drawable.baseline_wb_sunny_24
+                            else -> R.drawable.baseline_wb_sunny_24
+                        }
 
-                    Spacer(modifier = Modifier.width(16.dp))
+                        Image(
+                            painter = painterResource(id = iconRes),
+                            contentDescription = forecast.day.condition.text,
+                            modifier = Modifier.size(40.dp),
+                            contentScale = ContentScale.Fit
+                        )
 
-                    Column {
-                        Text(
-                            text = forecast.date,
-                            style = MaterialTheme.typography.bodyLarge
-                        )
-                        Text(
-                            text = "${forecast.day.condition.text} - High ${forecast.day.maxtemp_c}° / Low ${forecast.day.mintemp_c}°",
-                            style = MaterialTheme.typography.bodyMedium
-                        )
+                        Spacer(modifier = Modifier.width(16.dp))
+
+                        Column {
+                            Text(
+                                text = forecast.date,
+                                style = MaterialTheme.typography.bodyLarge
+                            )
+                            Text(
+                                text = "${forecast.day.condition.text} - High ${forecast.day.maxtemp_c}° / Low ${forecast.day.mintemp_c}°",
+                                style = MaterialTheme.typography.bodyMedium
+                            )
+                        }
                     }
                 }
             }
