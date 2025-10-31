@@ -71,5 +71,6 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:2.7.6")
     implementation("com.google.accompanist:accompanist-navigation-animation:0.34.0")
     implementation("androidx.compose.animation:animation:1.6.0")
+    implementation("com.google.android.gms:play-services-location:21.0.1")
 
 }
